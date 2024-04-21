@@ -8,7 +8,7 @@ use std::sync::mpsc::Receiver;
 
 use gl;
 extern crate glfw;
-use self::glfw::{Key, Action};
+use self::glfw::{Key, Action, GlfwReceiver};
 
 use image;
 use image::GenericImage;
@@ -19,7 +19,7 @@ use camera::Camera_Movement::*;
 
 /// Event processing function as introduced in 1.7.4 (Camera Class) and used in
 /// most later tutorials
-pub fn process_events(events: &Receiver<(f64, glfw::WindowEvent)>,
+pub fn process_events(events: &GlfwReceiver<(f64, glfw::WindowEvent)>,
                   firstMouse: &mut bool,
                   lastX: &mut f32,
                   lastY: &mut f32,

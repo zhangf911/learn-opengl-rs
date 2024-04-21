@@ -2,7 +2,7 @@
 #![allow(non_snake_case)]
 
 extern crate glfw;
-use self::glfw::{Context, Key, Action};
+use self::glfw::{Context, Key, Action, GlfwReceiver};
 
 extern crate gl;
 use self::gl::types::*;
@@ -47,7 +47,7 @@ pub fn main_1_7_2() {
 
     // glfw: initialize and configure
     // ------------------------------
-    let mut glfw = glfw::init(glfw::FAIL_ON_ERRORS).unwrap();
+    let mut glfw = glfw::init_no_callbacks().unwrap();
     glfw.window_hint(glfw::WindowHint::ContextVersion(3, 3));
     glfw.window_hint(glfw::WindowHint::OpenGlProfile(glfw::OpenGlProfileHint::Core));
     #[cfg(target_os = "macos")]
@@ -285,7 +285,7 @@ pub fn main_1_7_2() {
 // NOTE: not the same version as in common.rs!
 #[allow(unknown_lints)]
 #[allow(single_match)]
-fn process_events(events: &Receiver<(f64, glfw::WindowEvent)>) {
+fn process_events(events: &GlfwReceiver<(f64, glfw::WindowEvent)>) {
     for (_, event) in glfw::flush_messages(events) {
         match event {
             glfw::WindowEvent::FramebufferSize(width, height) => {

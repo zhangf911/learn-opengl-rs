@@ -1,6 +1,6 @@
 #![allow(non_upper_case_globals)]
 extern crate glfw;
-use self::glfw::{Context, Key, Action};
+use self::glfw::{Context, Key, Action, GlfwReceiver};
 
 extern crate gl;
 use self::gl::types::*;
@@ -44,7 +44,7 @@ const fragmentShader2Source: &str = r#"
 pub fn main_1_2_5() {
     // glfw: initialize and configure
     // ------------------------------
-    let mut glfw = glfw::init(glfw::FAIL_ON_ERRORS).unwrap();
+    let mut glfw = glfw::init_no_callbacks().unwrap();
     glfw.window_hint(glfw::WindowHint::ContextVersion(3, 3));
     glfw.window_hint(glfw::WindowHint::OpenGlProfile(glfw::OpenGlProfileHint::Core));
     #[cfg(target_os = "macos")]
@@ -178,7 +178,7 @@ pub fn main_1_2_5() {
 }
 
 // NOTE: not the same version as in common.rs!
-fn process_events(window: &mut glfw::Window, events: &Receiver<(f64, glfw::WindowEvent)>) {
+fn process_events(window: &mut glfw::Window, events: &GlfwReceiver<(f64, glfw::WindowEvent)>) {
     for (_, event) in glfw::flush_messages(events) {
         match event {
             glfw::WindowEvent::FramebufferSize(width, height) => {
